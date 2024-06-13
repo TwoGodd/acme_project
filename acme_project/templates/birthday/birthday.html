@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+  <form>
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form>
+  <!-- Если в запросе есть параметры... -->
+  {% if request.GET %}
+    <!-- ...поприветствуем пользователя: -->
+    <h2>Привет, {{ request.GET.first_name }} {{ request.GET.last_name }}</h2>
+  {% endif %}
 {% endblock %}
