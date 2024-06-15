@@ -11,3 +11,10 @@ class Birthday(models.Model):
     )
     # Валидатор указывается в описании поля.
     birthday = models.DateField('Дата рождения', validators=(real_age,))
+
+    class Meta:
+        verbose_name = 'именинник'
+        verbose_name_plural = 'Именинники'
+
+    def __str__(self):
+        return self.last_name
