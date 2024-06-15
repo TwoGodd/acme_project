@@ -15,6 +15,12 @@ class Birthday(models.Model):
     class Meta:
         verbose_name = 'именинник'
         verbose_name_plural = 'Именинники'
+        constraints = (
+            models.UniqueConstraint(
+                fields=('first_name', 'last_name', 'birthday'),
+                name='Unique person constraint',
+            ),
+        )
 
     def __str__(self):
         return self.last_name
