@@ -86,28 +86,32 @@ class BirthdayListView(ListView):
 class BirthdayMixin:
     # Указываем модель, с которой работает CBV...
     model = Birthday
-    # Этот класс сам может создать форму на основе модели!
-    # Нет необходимости отдельно создавать форму через ModelForm.
-    # НО! это форма без валидации, её можно использовать в простых формах. 
-    # Указываем поля, которые должны быть в форме:
-    # fields = '__all__'
-    # Указываем имя формы:
-    form_class = BirthdayForm
-    # Явным образом указываем шаблон:
-    template_name = 'birthday/birthday.html'
     # Указываем namespace:name страницы, куда будет перенаправлен пользователь
     # после создания объекта:
     success_url = reverse_lazy('birthday:list')
 
 
-class BirthdayCreateView(BirthdayMixin, CreateView):
+class BirthdayFormMixin:
+    # Классы CreateView и UpdateView
+    # могут сами создавать формы на основе модели.
+    # Нет необходимости отдельно создавать форму через ModelForm.
+    # НО! Это форма без валидации, её можно использовать в простых формах.
+    # Указываем поля, которые должны быть в форме:
+    # fields = '__all__'
+    # Для более сложных форм указываем имя формы:
+    form_class = BirthdayForm
+    # Явным образом указываем шаблон,
+    # если он не со стандарным именем типа 'имя-модели_confirm_delete.html':
+    template_name = 'birthday/birthday.html'
+
+
+class BirthdayCreateView(BirthdayMixin, BirthdayFormMixin, CreateView):
     pass
 
 
-class BirthdayUpdateView(BirthdayMixin, UpdateView):
+class BirthdayUpdateView(BirthdayMixin, BirthdayFormMixin, UpdateView):
     pass
 
 
-class BirthdayDeleteView(DeleteView):
-    model = Birthday
-    success_url = reverse_lazy('birthday:list')
+class BirthdayDeleteView(BirthdayMixin, DeleteView):
+    pass
