@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import BirthdayForm
 from .models import Birthday
@@ -106,3 +106,8 @@ class BirthdayCreateView(BirthdayMixin, CreateView):
 
 class BirthdayUpdateView(BirthdayMixin, UpdateView):
     pass
+
+
+class BirthdayDeleteView(DeleteView):
+    model = Birthday
+    success_url = reverse_lazy('birthday:list')
