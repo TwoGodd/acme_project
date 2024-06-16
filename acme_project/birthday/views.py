@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView
+from django.views.generic import CreateView, ListView
+from django.urls import reverse_lazy
 
 from .forms import BirthdayForm
 from .models import Birthday
@@ -79,3 +80,20 @@ class BirthdayListView(ListView):
     ordering = 'id'
     # ...и даже настройки пагинации:
     paginate_by = 10
+
+
+class BirthdayCreateView(CreateView):
+    # Указываем модель, с которой работает CBV...
+    model = Birthday
+    # Этот класс сам может создать форму на основе модели!
+    # Нет необходимости отдельно создавать форму через ModelForm.
+    # НО! это форма без валидации, её можно использовать в простых формах. 
+    # Указываем поля, которые должны быть в форме:
+    # fields = '__all__'
+    # Указываем имя формы:
+    form_class = BirthdayForm
+    # Явным образом указываем шаблон:
+    template_name = 'birthday/birthday.html'
+    # Указываем namespace:name страницы, куда будет перенаправлен пользователь
+    # после создания объекта:
+    success_url = reverse_lazy('birthday:list')
