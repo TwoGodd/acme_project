@@ -1,6 +1,7 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, UpdateView
 
 from .forms import BirthdayForm
 from .models import Birthday
@@ -63,11 +64,11 @@ def birthday_list(request):
 
     # Получаем из запроса значение параметра page.
     page_number = request.GET.get('page')
-    # Получаем запрошенную страницу пагинатора. 
+    # Получаем запрошенную страницу пагинатора.
     # Если параметра page нет в запросе или его значение не приводится к числу,
     # вернётся первая страница.
     page_obj = paginator.get_page(page_number)
-    # Вместо полного списка объектов передаём в контекст 
+    # Вместо полного списка объектов передаём в контекст
     # объект страницы пагинатора
     context = {'page_obj': page_obj}
     return render(request, 'birthday/birthday_list.html', context)
@@ -82,7 +83,7 @@ class BirthdayListView(ListView):
     paginate_by = 10
 
 
-class BirthdayCreateView(CreateView):
+class BirthdayMixin:
     # Указываем модель, с которой работает CBV...
     model = Birthday
     # Этот класс сам может создать форму на основе модели!
@@ -97,3 +98,11 @@ class BirthdayCreateView(CreateView):
     # Указываем namespace:name страницы, куда будет перенаправлен пользователь
     # после создания объекта:
     success_url = reverse_lazy('birthday:list')
+
+
+class BirthdayCreateView(BirthdayMixin, CreateView):
+    pass
+
+
+class BirthdayUpdateView(BirthdayMixin, UpdateView):
+    pass
