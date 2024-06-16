@@ -1,10 +1,8 @@
 from django import forms
-
 from django.core.exceptions import ValidationError
 
 # Импортируем класс модели Birthday.
 from .models import Birthday
-
 
 BEATLES = {'Джон Леннон', 'Пол Маккартни', 'Джордж Харрисон', 'Ринго Старр'}
 

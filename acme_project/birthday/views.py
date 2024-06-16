@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import ListView
 
 from .forms import BirthdayForm
 from .models import Birthday
@@ -69,3 +70,12 @@ def birthday_list(request):
     # объект страницы пагинатора
     context = {'page_obj': page_obj}
     return render(request, 'birthday/birthday_list.html', context)
+
+
+class BirthdayListView(ListView):
+    # Указываем модель, с которой работает CBV...
+    model = Birthday
+    # ...сортировку, которая будет применена при выводе списка объектов:
+    ordering = 'id'
+    # ...и даже настройки пагинации:
+    paginate_by = 10
