@@ -97,3 +97,6 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 # Страница куда будет по умолчанию отправлен пользователь после авторизации
 LOGIN_REDIRECT_URL = 'pages:homepage'
+
+# Адрес страницы логина
+LOGIN_URL = 'login'
