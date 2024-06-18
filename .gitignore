@@ -132,3 +132,6 @@ dmypy.json
 
 #media-files sourses
 acme_project/media
+
+#test e-mails
+acme_project/sent_emails
