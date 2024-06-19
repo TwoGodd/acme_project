@@ -4,7 +4,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-m&$lzdzkutvrbr5vt=jpm)7#g7cken_tk%($ty+w902n7wb#=e'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -107,3 +107,6 @@ LOGIN_REDIRECT_URL = 'pages:homepage'
 
 # Адрес страницы логина
 LOGIN_URL = 'login'
+
+# Константа для ошибки 403csrf
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure' 
